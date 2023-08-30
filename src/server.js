@@ -1,7 +1,7 @@
 const express = require("express");
 
-const barRoutes = require("./src/bar/routes");
-const commentRoutes = require("./src/comment/routes");
+const barRoutes = require("./bar/routes");
+const commentRoutes = require("./comment/routes");
 
 const app = express();
 const port = 3000;

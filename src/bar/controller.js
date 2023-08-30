@@ -1,6 +1,6 @@
-const pool = require('../../database');
+const pool = require('../database');
 const queries = require('./queries');
-const s3 = require('../../s3');
+const s3 = require('../s3');
 const uuid = require('uuid');
 
 const getBars = async (req, res) => {

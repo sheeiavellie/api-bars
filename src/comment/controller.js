@@ -1,4 +1,4 @@
-const pool = require('../../database');
+const pool = require('../database');
 const queries = require('./queries');
 
 const getComments = async (req, res) => {
