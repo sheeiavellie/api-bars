@@ -39,7 +39,7 @@ const getCommentByID = async (req, res) => {
 
         if(!results.rows.length)
         {
-            res.send(`Comment ${id} doesn't exist!`)
+            res.status(400).send(`Comment ${id} doesn't exist!`)
             return;
         }
 
@@ -57,7 +57,7 @@ const removeComment = async (req, res) => {
 
     if(noCommentFound)
     {
-        res.send(`Comment ${id} doesn't exist!`);
+        res.status(400).send(`Comment ${id} doesn't exist!`);
         return;
     }
 
@@ -78,7 +78,7 @@ const updateComment = async (req, res) => {
 
     if(noCommentFound)
     {
-        res.send(`Comment ${id} doesn't exist!`);
+        res.status(400).send(`Comment ${id} doesn't exist!`);
         return;
     }
 

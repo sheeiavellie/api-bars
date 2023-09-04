@@ -34,7 +34,7 @@ const getBarById = async (req, res) => {
         const noBarFound = !results.rows.length;
         if(noBarFound)
         {
-            res.send(`Bar ${id} doesn't exist!`);
+            res.status(400).send(`Bar ${id} doesn't exist!`);
             return;
         }
 
@@ -52,22 +52,29 @@ const addBar = async (req, res) => {
     console.log("req.file", req.file);
 
     const imageName = uuid.v4();
-    const buffer = req.file.buffer;    
-
-    const upload = await s3.s3.Upload({
-        buffer: buffer,
-        name: `${imageName}.png`,
-        },
-        '/images/'
-    );
+    const buffer = req.file.buffer;
 
     const { name, description, rating, geolocation, author } = req.body;
+
+    if(Number(rating) > 5 || Number(rating) < 1)
+    {
+        res.status(400).send("Invalid input: Raiting can only be from 1 to 5!");
+        return;
+    }
+
     try {
         const barExist = (await pool.query(queries.checkGeolocationExist, [geolocation])).rows.length;
         if(barExist) {
-            res.send("Bar already exist.");
+            res.status(400).send("Bar already exist.");
             return;
         }
+
+        const upload = await s3.s3.Upload({
+            buffer: buffer,
+            name: `${imageName}.png`,
+            },
+            '/images/'
+        );
 
         const results = await pool.query(queries.addBar, [imageName, name, description, rating, geolocation, author]);
         res.status(201).send("Bar created successfully!");
@@ -86,7 +93,7 @@ const removeBar = async (req, res) => {
         const noBarFound = !bar.rows.length;
         if(noBarFound)
         {
-            res.send(`Bar ${id} doesn't exist!`);
+            res.status(400).send(`Bar ${id} doesn't exist!`);
             return;
         }
 
