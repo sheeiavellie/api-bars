@@ -7,7 +7,7 @@ Small API for saving locations of your favourite sport activity places.
 - Will be continued
 
 ## App
-Curently working on mobile flutter app that will use this API.
+Currently working on mobile flutter app that will use this API.
 
 ## Support
 I will always keep it 100% free, but if you want you can help me keep it running by [donating here](https://www.donationalerts.com/r/sheeiavellie). :)
