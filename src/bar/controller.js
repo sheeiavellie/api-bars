@@ -54,13 +54,13 @@ const addBar = async (req, res) => {
     const imageName = uuid.v4();
     const buffer = req.file.buffer;
 
-    const { name, description, rating, geolocation, author } = req.body;
+    const { name, description, char_emoji, geolocation, author } = req.body;
 
-    if(Number(rating) > 5 || Number(rating) < 1)
-    {
-        res.status(400).send("Invalid input: Raiting can only be from 1 to 5!");
-        return;
-    }
+    // if(Number(rating) > 5 || Number(rating) < 1)
+    // {
+    //     res.status(400).send("Invalid input: Raiting can only be from 1 to 5!");
+    //     return;
+    // }
 
     try {
         const barExist = (await pool.query(queries.checkGeolocationExist, [geolocation])).rows.length;
@@ -76,7 +76,7 @@ const addBar = async (req, res) => {
             '/images/'
         );
 
-        const results = await pool.query(queries.addBar, [imageName, name, description, rating, geolocation, author]);
+        const results = await pool.query(queries.addBar, [imageName, name, description, char_emoji, geolocation, author]);
         res.status(201).send("Bar created successfully!");
     } catch(err) {
         res.status(500);
