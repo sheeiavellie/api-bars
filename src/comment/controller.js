@@ -21,10 +21,10 @@ const getComments = async (req, res) => {
 
 const addComment = async (req, res) => {
     const bar_id = parseInt(req.params.bar_id);  
-    const { date, author, text } = req.body;
+    const { author, text } = req.body;
 
     try {
-        const results = await pool.query(queries.addComment, [bar_id, date, author, text]);
+        const results = await pool.query(queries.addComment, [bar_id, author, text]);
         res.status(201).send("Comment created successfully!");
     } catch(err) {
         res.status(500);
